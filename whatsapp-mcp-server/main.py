@@ -1,4 +1,5 @@
 from typing import List, Dict, Any, Optional
+import dataclasses
 from mcp.server.fastmcp import FastMCP
 from whatsapp import (
     search_contacts as whatsapp_search_contacts,
@@ -26,7 +27,7 @@ def search_contacts(query: str) -> List[Dict[str, Any]]:
         query: Search term to match against contact names or phone numbers
     """
     contacts = whatsapp_search_contacts(query)
-    return contacts
+    return [dataclasses.asdict(c) for c in contacts]
 
 @mcp.tool()
 def list_messages(
@@ -93,7 +94,13 @@ def list_chats(
         include_last_message=include_last_message,
         sort_by=sort_by
     )
-    return chats
+    result = []
+    for chat in chats:
+        d = dataclasses.asdict(chat)
+        if d.get("last_message_time") is not None:
+            d["last_message_time"] = d["last_message_time"].isoformat()
+        result.append(d)
+    return result
 
 @mcp.tool()
 def get_chat(chat_jid: str, include_last_message: bool = True) -> Dict[str, Any]:
