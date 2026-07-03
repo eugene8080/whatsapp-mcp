@@ -82,7 +82,7 @@ def call_claude(chat_jid: str, user_text: str) -> str:
     hist.append({"role": "user", "content": user_text})
 
     response = client.messages.create(
-        model="claude-sonnet-4-6",
+        model="claude-haiku-4-5-20251001",
         max_tokens=1024,
         system=(
             "You are Claude, a helpful AI assistant reachable via WhatsApp. "

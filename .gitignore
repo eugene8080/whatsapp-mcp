@@ -5,6 +5,7 @@ whatsapp.log
 # compiled binaries
 whatsapp-bridge/whatsapp-bridge.exe
 
-# bot secrets and virtualenv
+# bot secrets, runtime state, and virtualenv
 whatsapp-bot/.env
 whatsapp-bot/.venv/
+whatsapp-bot/bot_state.json
