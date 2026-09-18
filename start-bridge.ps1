@@ -47,6 +47,12 @@ if (Test-Path variable:PSNativeCommandUseErrorActionPreference) {
     $PSNativeCommandUseErrorActionPreference = $false
 }
 
+# Decode the bridge's UTF-8 stdout as UTF-8 (it prints emoji + CJK chat names/bodies);
+# without this PowerShell decodes those bytes as the OEM code page and the log/console
+# show mojibake. Wrapped in try/catch because a headless conhost host may lack a console.
+try { [Console]::OutputEncoding = [System.Text.Encoding]::UTF8 } catch {}
+$OutputEncoding = [System.Text.Encoding]::UTF8
+
 # 2>&1 folds stderr into the pipeline so websocket errors also land in the log.
 # Tee-Object streams line-by-line: live output when interactive, persistent log always.
 .\whatsapp-bridge.exe 2>&1 | Tee-Object -FilePath $log -Append
