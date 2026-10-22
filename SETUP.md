@@ -24,9 +24,18 @@ The previous build left the device type as UNKNOWN.
 The communications refresh failed on 2026-10-22 because the message store had not
 updated since 2026-10-16 and the bridge was waiting for a QR scan. A running process
 or scheduler result of zero does not prove authentication or message syncing.
-Recovery requires the phone owner to scan a fresh QR code, followed by verification
-that messages sync and the five WhatsApp communications refreshes complete.
-Those recovery checks remain pending until pairing succeeds.
+Recovery verified 2026-10-22 at 14:54 HKT: pairing succeeded, history sync stored
+4,069 messages, and all five WhatsApp property refreshes passed (four updated;
+Lai Yee had no new messages). The three email properties were skipped by this
+manual recovery shell because its Gmail service-account environment was absent;
+their scheduled 08:00 run had already completed successfully.
+
+Eugene prefers the bridge **headless**, independent of Orca workspace terminals.
+The live `WhatsApp 1 - Bridge` task launches `start-bridge.ps1` through headless
+conhost, at logon and every five minutes, with no execution time limit. A temporary
+QR/log-viewer window only tails the log: closing it does not stop the bridge.
+The viewer was closed after pairing. The phone's displayed device name remains
+unconfirmed; desktop metadata was verified in the rebuilt executable's source.
 
 ### 1. Authenticate WhatsApp (QR scan)
 Run the bridge manually the first time to scan the QR code:
