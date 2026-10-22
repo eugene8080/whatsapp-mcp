@@ -15,6 +15,19 @@ You don't need to do anything manually after initial setup — both start automa
 
 ## Initial Setup (one-time)
 
+### Pairing recovery and device identity (2026-10-22)
+
+The bridge now supplies desktop pairing metadata named **PSCAP11 WhatsApp Bridge**.
+This applies to new pairings; confirm the phone's displayed label after linking.
+The previous build left the device type as UNKNOWN.
+
+The communications refresh failed on 2026-10-22 because the message store had not
+updated since 2026-10-16 and the bridge was waiting for a QR scan. A running process
+or scheduler result of zero does not prove authentication or message syncing.
+Recovery requires the phone owner to scan a fresh QR code, followed by verification
+that messages sync and the five WhatsApp communications refreshes complete.
+Those recovery checks remain pending until pairing succeeds.
+
 ### 1. Authenticate WhatsApp (QR scan)
 Run the bridge manually the first time to scan the QR code:
 ```powershell
